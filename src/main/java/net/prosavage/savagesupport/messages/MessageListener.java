@@ -10,10 +10,13 @@ public class MessageListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        String message = event.getMessage().getContentRaw().toLowerCase();
+        String message = event.getMessage().getContentRaw().toLowerCase()
+                // the word "the" is not required in the language.
+                .replace(" the", "").replace("the", "");
+        System.out.println(message);
         QuestionParser questionParser = new QuestionParser();
         MessageEmbed messageEmbed = questionParser.parseQuestion(message);
-        event.getChannel().sendMessage(messageEmbed).queue();
+        if (messageEmbed != null) event.getChannel().sendMessage(messageEmbed).queue();
     }
 
 
