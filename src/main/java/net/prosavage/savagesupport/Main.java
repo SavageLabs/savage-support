@@ -20,7 +20,7 @@ public class Main {
 
     private static void checkArguments(String[] args) {
         if (args.length != 1) {
-            throw new RuntimeException("You need to add a discord bot token to run this.");
+            throw new RuntimeException("You need to specify a discord bot token in arguments to run the bot.");
         }
     }
 
