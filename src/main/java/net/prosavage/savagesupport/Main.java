@@ -3,7 +3,7 @@ package net.prosavage.savagesupport;
 
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
-
+import net.prosavage.savagesupport.messages.MessageListener;
 
 import javax.security.auth.login.LoginException;
 
@@ -14,7 +14,8 @@ public class Main {
 
     public static void main(String[] args) {
         checkArguments(args);
-        login();
+        login(args[0]);
+        instance.addEventListener(new MessageListener());
 
     }
 
@@ -24,8 +25,8 @@ public class Main {
         }
     }
 
-    private static void login() {
-        JDABuilder builder = new JDABuilder();
+    private static void login(String token) {
+        JDABuilder builder = new JDABuilder(token);
         try {
             instance = builder.build();
         } catch (LoginException e) {
