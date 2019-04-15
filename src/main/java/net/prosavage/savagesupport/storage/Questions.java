@@ -16,7 +16,7 @@ public class Questions {
 
 
     static {
-        questionCompounds.addAll(Arrays.asList("how", "?", "what", "when", "where"));
+        questionCompounds.addAll(Arrays.asList("how", "?", "what", "when", "where", "why"));
         questionAnswerMap.put("claim warzone", new TaskListEmbed("Claiming Warzone", new MessageEmbed.Field[]
                 {
                         new MessageEmbed.Field("Step 1", "Make sure you are OP, have the '*' permission, or have admin permission for factions.", false),
