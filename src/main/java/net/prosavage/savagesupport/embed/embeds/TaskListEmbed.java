@@ -1,7 +1,7 @@
-package net.prosavage.savagesupport.action.embeds;
+package net.prosavage.savagesupport.embed.embeds;
 
 import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.prosavage.savagesupport.action.Embed;
+import net.prosavage.savagesupport.embed.Embed;
 import net.prosavage.savagesupport.messagebuilder.MessageBuilder;
 
 public class TaskListEmbed implements Embed {

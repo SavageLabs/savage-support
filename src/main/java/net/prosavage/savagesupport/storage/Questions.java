@@ -1,8 +1,8 @@
 package net.prosavage.savagesupport.storage;
 
 import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.prosavage.savagesupport.action.Embed;
-import net.prosavage.savagesupport.action.embeds.TaskListEmbed;
+import net.prosavage.savagesupport.embed.Embed;
+import net.prosavage.savagesupport.embed.embeds.TaskListEmbed;
 
 import java.util.Arrays;
 import java.util.HashMap;

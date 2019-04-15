@@ -14,7 +14,6 @@ public class MessageBuilder {
         // Sets defaults.
         embedBuilder.setAuthor("Savage Support", "https://prosavage.net");
         embedBuilder.setColor(new Color(7722365));
-        embedBuilder.setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Antu_flag-red.svg/512px-Antu_flag-red.svg.png");
     }
 
     public void setTitle(String title) {
