@@ -6,6 +6,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.prosavage.savagesupport.messages.parser.parsers.CommandParser;
 import net.prosavage.savagesupport.messages.parser.parsers.LinkParser;
 import net.prosavage.savagesupport.messages.parser.parsers.QuestionParser;
+import net.prosavage.savagesupport.verification.VerifyCommand;
 
 public class MessageListener extends ListenerAdapter {
 
@@ -15,6 +16,10 @@ public class MessageListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
+        if (event.getAuthor().isBot()) return;
+        if (event.getChannel().getName().equals("verification") && !event.getMessage().getContentRaw().startsWith("!verify")) {
+            event.getMessage().delete().queue();
+        }
         String message = event.getMessage().getContentRaw().toLowerCase()
                 // the word "the" is not required in the language.
                 .replace(" the", "").replace("the", "");
@@ -27,6 +32,8 @@ public class MessageListener extends ListenerAdapter {
         }
         messageEmbed = commandParser.parseCommand(message, event.getAuthor());
         if (messageEmbed != null) event.getChannel().sendMessage(messageEmbed).queue();
+        VerifyCommand.verify(event.getGuild(), event.getChannel(), event.getMessage().getContentRaw().toLowerCase(), event.getAuthor());
+
 
 
 
