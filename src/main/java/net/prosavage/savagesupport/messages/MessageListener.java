@@ -6,6 +6,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.prosavage.savagesupport.messages.parser.parsers.CommandParser;
 import net.prosavage.savagesupport.messages.parser.parsers.LinkParser;
 import net.prosavage.savagesupport.messages.parser.parsers.QuestionParser;
+import net.prosavage.savagesupport.verification.UnLinkCommand;
 import net.prosavage.savagesupport.verification.VerifyCommand;
 
 public class MessageListener extends ListenerAdapter {
@@ -13,6 +14,7 @@ public class MessageListener extends ListenerAdapter {
     private QuestionParser questionParser = new QuestionParser();
     private LinkParser linkParser = new LinkParser();
     private CommandParser commandParser = new CommandParser();
+    private UnLinkCommand unLinkCommand = new UnLinkCommand();
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
@@ -33,6 +35,7 @@ public class MessageListener extends ListenerAdapter {
         messageEmbed = commandParser.parseCommand(message, event.getAuthor());
         if (messageEmbed != null) event.getChannel().sendMessage(messageEmbed).queue();
         VerifyCommand.verify(event.getGuild(), event.getChannel(), event.getMessage().getContentRaw().toLowerCase(), event.getAuthor());
+        UnLinkCommand.unLinkCommand(event.getGuild(), event.getAuthor(), event.getChannel(), event.getMessage().getContentRaw());
 
 
 
