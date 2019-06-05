@@ -60,7 +60,7 @@ public class VerifyCommand {
         if (!VerificationAPIWrapper.checkIfOwnsPlugins(spigotUsername)) {
             MessageBuilder dontOwnPlugins = new MessageBuilder();
             dontOwnPlugins.setTitle("Verification Error");
-            dontOwnPlugins.setDescription("The specified username does not own any of our plugins.");
+            dontOwnPlugins.setDescription("The specified username does not own any of our premium plugins on spigot.");
             channel.sendMessage(dontOwnPlugins.build()).queue();
             return;
         }
@@ -85,7 +85,7 @@ public class VerifyCommand {
                             (all.getText().equals("ProSavage Verification -- " + code) || all.getText().equals(code))) {
                         MessageBuilder verificationComplete = new MessageBuilder();
                         verificationComplete.setTitle("Verification Complete");
-                        verificationComplete.setDescription("You have been verified " + user.getAsTag());
+                        verificationComplete.setDescription("You have been verified " + user.getAsTag() + " make sure to use the !sync command next!");
                         channel.sendMessage(verificationComplete.build()).queue();
                         Main.userData.userData.put(user.getId(), new UserInfo(spigotUsername.toLowerCase(), user.getId(), userID));
                         Role verified = Main.instance.getRolesByName("verified", true).get(0);
