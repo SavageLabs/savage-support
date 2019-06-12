@@ -14,7 +14,7 @@ public class WikiAction extends Action {
         MessageBuilder messageBuilder = new MessageBuilder();
         messageBuilder.setTitle("Command Wiki");
         StringBuilder descriptionBuilder = new StringBuilder();
-        descriptionBuilder.append("[Click here to go to the SavageFactions Wiki.](https://github.com/ProSavage/SavageFactions/wiki)");
+        descriptionBuilder.append("[Click here to go to the SavageLLC Wiki.](http://wiki.prosavage.net/#all-updates)");
         messageBuilder.setDescription(descriptionBuilder.toString());
         return messageBuilder.build();
     }

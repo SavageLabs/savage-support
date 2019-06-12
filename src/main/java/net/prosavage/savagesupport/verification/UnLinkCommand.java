@@ -2,6 +2,7 @@ package net.prosavage.savagesupport.verification;
 
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.*;
+import net.prosavage.savagesupport.Main;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +13,7 @@ public class UnLinkCommand {
     private List<String> string = Arrays.asList("savagebuckets", "savageftop");
 
     public static void unLinkCommand(Guild guild, User user, MessageChannel channel, String message) {
-        System.out.println("Checking message.");
+
         if (!message.startsWith("!unlink")
                 || !guild.getMember(user).getRoles().contains(guild.getRolesByName("Staff", true).get(0))) {
             return;
@@ -41,6 +42,7 @@ public class UnLinkCommand {
 
 
         guild.getController().removeSingleRoleFromMember(member, guild.getRolesByName("verified", true).get(0)).queue();
+        Main.userData.userData.remove(member.getUser().getId());
         channel.sendMessage(new MessageBuilder("Removed verified role! " + member.getEffectiveName()).build()).queue();
 
 

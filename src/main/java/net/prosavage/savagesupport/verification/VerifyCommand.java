@@ -1,6 +1,7 @@
 package net.prosavage.savagesupport.verification;
 
 
+import me.TechsCode.TechsCodeAPIClient.collections.PurchaseCollection;
 import net.dv8tion.jda.core.entities.*;
 import net.prosavage.savagesupport.Main;
 import net.prosavage.savagesupport.messagebuilder.MessageBuilder;
@@ -90,6 +91,24 @@ public class VerifyCommand {
                         Main.userData.userData.put(user.getId(), new UserInfo(spigotUsername.toLowerCase(), user.getId(), userID));
                         Role verified = Main.instance.getRolesByName("verified", true).get(0);
                         guild.getController().addRolesToMember(guild.getMember(user), verified).queue();
+                        PurchaseCollection purchases = VerificationAPIWrapper.getPurchases(Main.userData.userData.get(user.getId()).getSpigotName());
+                        purchases.getStream().forEach(purchase -> {
+                            // Check for Savage Buckets
+                            if (purchase.getResourceId().equals("63051")) {
+                                guild.getController().addRolesToMember(guild.getMember(user), getRole(guild, "savagebuckets")).queue();
+                                channel.sendMessage(new net.dv8tion.jda.core.MessageBuilder("You have been given the savagebuckets role.").build()).queue(((m) ->
+                                        m.delete().queueAfter(30, TimeUnit.SECONDS)));
+
+                                // Check for Savage FTOP
+                            }
+                            if (purchase.getResourceId().equals("65205")) {
+                                guild.getController().addRolesToMember(guild.getMember(user), getRole(guild, "savageftop")).queue();
+                                channel.sendMessage(new net.dv8tion.jda.core.MessageBuilder("You have been given the savageftop role.").build()).queue(((m) ->
+                                        m.delete().queueAfter(30, TimeUnit.SECONDS)));
+                                ;
+
+                            }
+                        });
                         return;
                     }
                 }
@@ -103,5 +122,8 @@ public class VerifyCommand {
 
     }
 
+    private static Role getRole(Guild guild, String name) {
+        return guild.getRolesByName(name, true).get(0);
+    }
 
 }

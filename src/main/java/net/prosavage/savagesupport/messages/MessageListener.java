@@ -6,6 +6,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.prosavage.savagesupport.messages.parser.parsers.CommandParser;
 import net.prosavage.savagesupport.messages.parser.parsers.LinkParser;
 import net.prosavage.savagesupport.messages.parser.parsers.QuestionParser;
+import net.prosavage.savagesupport.verification.SyncCommand;
 import net.prosavage.savagesupport.verification.UnLinkCommand;
 import net.prosavage.savagesupport.verification.VerifyCommand;
 
@@ -19,6 +20,7 @@ public class MessageListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getAuthor().isBot()) return;
+        System.out.println("Message Fired");
         if (event.getChannel().getName().equals("verification") && !event.getMessage().getContentRaw().startsWith("!verify")) {
             event.getMessage().delete().queue();
         }
@@ -27,16 +29,21 @@ public class MessageListener extends ListenerAdapter {
                 .replace(" the", "").replace("the", "");
         MessageEmbed messageEmbed = questionParser.parseQuestion(message);
         if (messageEmbed != null) event.getChannel().sendMessage(messageEmbed).queue();
-        messageEmbed = linkParser.parseLink(message, event.getAuthor().getName());
+        if (!event.getGuild().getMember(event.getAuthor()).getRoles().contains(event.getGuild().getRolesByName("Staff", true).get(0))) {
+            messageEmbed = linkParser.parseLink(message, event.getAuthor().getName());
+        }
         if (messageEmbed != null) {
             event.getMessage().delete().queue();
             event.getChannel().sendMessage(messageEmbed).queue();
         }
         messageEmbed = commandParser.parseCommand(message, event.getAuthor());
-        if (messageEmbed != null) event.getChannel().sendMessage(messageEmbed).queue();
+        if (messageEmbed != null) {
+            event.getChannel().sendMessage(messageEmbed).queue();
+            return;
+        }
         VerifyCommand.verify(event.getGuild(), event.getChannel(), event.getMessage().getContentRaw().toLowerCase(), event.getAuthor());
         UnLinkCommand.unLinkCommand(event.getGuild(), event.getAuthor(), event.getChannel(), event.getMessage().getContentRaw());
-
+        SyncCommand.syncCommand(event.getGuild(), event.getAuthor(), event.getChannel(), event.getMessage().getContentRaw());
 
 
 
