@@ -20,7 +20,6 @@ public class MessageListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getAuthor().isBot()) return;
-        System.out.println("Message Fired");
         if (event.getChannel().getName().equals("verification") && !event.getMessage().getContentRaw().startsWith("!verify")) {
             event.getMessage().delete().queue();
         }

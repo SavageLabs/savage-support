@@ -41,6 +41,12 @@ public class SyncCommand {
                         m.delete().queueAfter(30, TimeUnit.SECONDS)));
 
             }
+            if (purchase.getResourceId().equals("67574")) {
+                guild.getController().addRolesToMember(guild.getMember(user), getRole(guild, "savagehoppers")).queue();
+                channel.sendMessage(new net.dv8tion.jda.core.MessageBuilder("You have been given the savagehoppers role.").build()).queue(((m) ->
+                        m.delete().queueAfter(30, TimeUnit.SECONDS)));
+
+            }
         });
 
 
